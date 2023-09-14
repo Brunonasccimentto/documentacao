@@ -1,0 +1,28 @@
+-para criar o container com o banco de dados:
+
+docker pull brunonasccimentto/cliente-db:1.0
+docker run -p 3306:3306 --name=server -d brunonasccimentto/cliente-db:1.0
+
+o name TEM que ser server para manter o mesmo nome da conexão a api.
+
+-para criar o container da api e linkar ao container do banco de dados:
+
+docker pull brunonasccimentto/clienteapi:1.4
+docker run -p 3000:3000 -d --name [container-name] --link server:mysql brunonasccimentto/clienteapi:1.4
+
+O container server deve estar rodando para fazer o link
+
+
+
+
+Mudanças para atender as exigencias de QA
+
+Requisições: A api agora esta rodando esperando dados como multipart/form-data, ou seja, não funciona mais a requisição mandando um JSON.
+
+- Os caminhos para registrar e buscar tipos de clientes continuam o mesmo, respectivamente: /form/register e /form/clientTypes.
+
+- O caminho para buscar clientes teve alterações, mudou para o método de requisição GET, funcionando agora da seguinte forma: /find
+
+obs: : só funciona agora por meio de quety params
+
+
